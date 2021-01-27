@@ -1,65 +1,85 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import React, { useState, useCallback } from "react";
+import RegistrationForm from "../components/RegistrationForm";
+//need to fix top banner images
+//also need to fix the top banner so it doesn't make the scroll unnecessarily scrollable
+//make site better for resizing
+//fix background image to scale properly
 
-export default function Home() {
+export default function App() {
+  const [regNum, setRegNum] = useState(1);
+
+  let regRows = [];
+  for (let i = 0; i < regNum; i++) {
+    regRows.push(<RegistrationForm key={i} index={i} />);
+  }
+  //ISSUES:
+  //  FIX BUILDING BUNDLER
+  //  CENTRE + AND - INSIDE OF CIRCLE
+  // TODO: Check that lines is >= 1
+  // Lines = 1
+  // TODO: Clear the object from the array when decrementing the 'lines' index
+  // Data = [
+  //   {
+  //    'fname': '',
+  //    'lname': '',
+  //    'phNum': '',
+  //    'fname-1': '',
+  //    'lname-1': '',
+  //    'phNum-1': '',
+  //   }
+  // ]
+
   return (
-    <div className={styles.container}>
+    <div className="bg-blkCoffee bg-cover bg-center overflow-hidden flex flex-col h-screen w-screen">
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>BLK MLK COVID-safety</title>
       </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+      {/* Banner */}
+      <div className="bg-black h-auto flex items-center px-12 py-4">
+        <div className="flex gap-8">
+          <img className="h-16" src="/facebook.svg" />
+          <img className="h-16" src="/instagram.svg" />
         </div>
-      </main>
+        <img className="h-24 ml-auto" src="/blkLogo.svg" />
+      </div>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+      {/* Form */}
+      <div className="h-full flex items-center justify-center">
+        {/* foreach lines */}
+        <div className="max-w-2xl w-full bg-white shadow-lg p-8">
+          <h1 className="text-4xl font-medium mb-8">
+            Please enter your details
+          </h1>
+
+          <form method="post" className="flex flex-col gap-8 text-left">
+            {regRows}
+
+            <div className="flex gap-8">
+              <div
+                className="flex bg-black text-white w-8 h-8 rounded-full justify-center text-center hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
+                onClick={() => setRegNum(regNum + 1)}
+              >
+                +
+              </div>
+              <div
+                className="flex bg-black text-white w-8 h-8 rounded-full justify-center align-middle hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
+                onClick={() => {
+                  if (regNum > 1) {
+                    setRegNum(regNum - 1);
+                  }
+                }}
+              >
+                -
+              </div>
+            </div>
+            <input
+              className="mt-10 h-14 text-white bg-black font-medium shadow-lg hover:bg-gray-900 active:bg-gray-700 cursor-pointer"
+              type="submit"
+            />
+          </form>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
