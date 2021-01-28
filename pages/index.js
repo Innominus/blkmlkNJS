@@ -1,21 +1,8 @@
 import Head from "next/head";
 import React, { useState, useCallback } from "react";
 import RegistrationForm from "../components/RegistrationForm";
-import { connectToDatabase } from "../my-mongodb-api/mongodb";
-//need to fix top banner images
-//also need to fix the top banner so it doesn't make the scroll unnecessarily scrollable
-//make site better for resizing
-//fix background image to scale properly
-export async function getServerSideProps(context) {
-  const { client } = await connectToDatabase();
 
-  const isConnected = await client.isConnected();
-
-  return {
-    props: { isConnected },
-  };
-}
-export default function App({ isConnected }) {
+export default function App() {
   const [regNum, setRegNum] = useState(1);
 
   const handleOnSubmit = (e) => {
@@ -27,10 +14,6 @@ export default function App({ isConnected }) {
     regRows.push(<RegistrationForm key={i} index={i} />);
   }
   //ISSUES:
-  //  FIX BUILDING BUNDLER
-  //  CENTRE + AND - INSIDE OF CIRCLE
-  // TODO: Check that lines is >= 1
-  // Lines = 1
   // TODO: Clear the object from the array when decrementing the 'lines' index
   // Data = [
   //   {
@@ -69,16 +52,8 @@ export default function App({ isConnected }) {
             onSubmit={handleOnSubmit}
             className="flex flex-col gap-8 text-left"
           >
-            {/* {regRows} */}
             {regRows}
-            {/* {isConnected ? (
-              <h2 className="subtitle">You are connected to MongoDB</h2>
-            ) : (
-              <h2 className="subtitle">
-                You are NOT connected to MongoDB. Check the{" "}
-                <code>README.md</code> for instructions.
-              </h2>
-            )} */}
+
             <div className="flex gap-8">
               <div
                 className="flex leading-7 bg-black text-white w-8 h-8 rounded-full justify-center text-center hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
