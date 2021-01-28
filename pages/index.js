@@ -81,13 +81,13 @@ export default function App({ isConnected }) {
             )} */}
             <div className="flex gap-8">
               <div
-                className="flex bg-black text-white w-8 h-8 rounded-full justify-center text-center hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
+                className="flex leading-7 bg-black text-white w-8 h-8 rounded-full justify-center text-center hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
                 onClick={() => setRegNum(regNum + 1)}
               >
                 +
               </div>
               <div
-                className="flex bg-black text-white w-8 h-8 rounded-full justify-center align-middle hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
+                className="flex leading-7 bg-black text-white w-8 h-8 rounded-full justify-center align-middle hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
                 onClick={() => {
                   if (regNum > 1) {
                     setRegNum(regNum - 1);
