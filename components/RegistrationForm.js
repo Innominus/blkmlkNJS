@@ -39,6 +39,7 @@ export default function RegistrationForm({ index }) {
           name={"phNum" + index}
         ></input>
       </div>
+      <div className="flex-1 h-1  border-black bg-black"></div>
     </div>
   );
 }
