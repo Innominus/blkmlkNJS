@@ -1,18 +1,29 @@
 import Head from "next/head";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import RegistrationForm from "../components/RegistrationForm";
+import { Formik, FieldArray } from "formik";
 
 export default function App() {
   const [regNum, setRegNum] = useState(1);
+  // const [regList, setRegList] = useState([]);
 
-  const handleOnSubmit = (e) => {
-    console.log(e);
-  };
+  const INITIAL_VALUES = [{ fname: "", lname: "", phNum: 0 }];
 
-  let regRows = [];
-  for (let i = 0; i < regNum; i++) {
-    regRows.push(<RegistrationForm key={i} index={i} />);
-  }
+  // function RegRowList(props) {
+  //   let regRows = [...regList];
+  //   regRows.push(
+  //     <RegistrationForm
+  //       key={regNum}
+  //       index={regNum}
+  //       handleChange={props.handleChange}
+  //       handleBlur={props.handleBlur}
+  //       values={props.value}
+  //     />
+  //   );
+  //   console.log(regRows);
+  //   return regRows;
+  // }
+
   //ISSUES:
   // TODO: Clear the object from the array when decrementing the 'lines' index
   // Data = [
@@ -47,36 +58,63 @@ export default function App() {
           <h1 className="text-4xl font-medium mb-8">
             Please enter your details
           </h1>
-
-          <form
-            onSubmit={handleOnSubmit}
-            className="flex flex-col gap-8 text-left"
+          <Formik
+            initialValues={{ regInputs: [INITIAL_VALUES] }}
+            onSubmit={(data) => {
+              alert(JSON.stringify(data, null, 2));
+            }}
           >
-            {regRows}
-
-            <div className="flex gap-8">
-              <div
-                className="flex leading-7 bg-black text-white w-8 h-8 rounded-full justify-center text-center hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
-                onClick={() => setRegNum(regNum + 1)}
+            {({ values, handleChange, handleBlur, handleSubmit }) => (
+              <form
+                className="flex flex-col gap-8 text-left"
+                onSubmit={handleSubmit}
               >
-                +
-              </div>
-              <div
-                className="flex leading-7 bg-black text-white w-8 h-8 rounded-full justify-center align-middle hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
-                onClick={() => {
-                  if (regNum > 1) {
-                    setRegNum(regNum - 1);
-                  }
-                }}
-              >
-                -
-              </div>
-            </div>
-            <input
-              className="mt-10 h-14 text-white bg-black font-medium shadow-lg hover:bg-gray-900 active:bg-gray-700 cursor-pointer"
-              type="submit"
-            />
-          </form>
+                <FieldArray
+                  name="regInputs"
+                  render={(arrayHelpers) => (
+                    <React.Fragment>
+                      <div className="flex gap-8">
+                        {values.regInputs.map((regInput, index) => (
+                          <RegistrationForm
+                            key={index}
+                            index={index}
+                            value={regInput}
+                            handleBlur={handleBlur}
+                            handleChange={handleChange}
+                            fname={`regInputs[${index}].fname`}
+                            lname={`regInputs[${index}].lname`}
+                            phNum={`regInputs[${index}].phNum`}
+                          />
+                        ))}
+                        <div
+                          className="flex leading-7 bg-black text-white w-8 h-8 rounded-full justify-center text-center hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
+                          onClick={() => {
+                            setRegNum(regNum + 1);
+                          }}
+                        >
+                          +
+                        </div>
+                        <div
+                          className="flex leading-7 bg-black text-white w-8 h-8 rounded-full justify-center align-middle hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
+                          onClick={() => {
+                            if (regNum > 1) {
+                              setRegNum(regNum - 1);
+                            }
+                          }}
+                        >
+                          -
+                        </div>
+                      </div>
+                      <input
+                        className="mt-10 h-14 text-white bg-black font-medium shadow-lg hover:bg-gray-900 active:bg-gray-700 cursor-pointer"
+                        type="submit"
+                      />
+                    </React.Fragment>
+                  )}
+                />
+              </form>
+            )}
+          </Formik>
         </div>
       </div>
     </div>

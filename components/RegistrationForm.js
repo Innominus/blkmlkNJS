@@ -1,6 +1,14 @@
 import React from "react";
 
-export default function RegistrationForm({ index }) {
+export default function RegistrationForm({
+  fname,
+  lname,
+  phNum,
+  value,
+  handleBlur,
+  handleChange,
+}) {
+  console.log(value);
   return (
     <div className="grid gap-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -12,7 +20,10 @@ export default function RegistrationForm({ index }) {
             placeholder="First name..."
             className="border-black border border-opacity-20 h-12 px-4 py-2"
             type="text"
-            name={"name-" + index}
+            name={fname}
+            value={value.fname}
+            onBlur={handleBlur}
+            onChange={handleChange}
           ></input>
         </div>
 
@@ -24,7 +35,10 @@ export default function RegistrationForm({ index }) {
             placeholder="Last name..."
             className="border-black border border-opacity-20 h-12 px-4 py-2"
             type="text"
-            name={"lname-" + index}
+            name={lname}
+            value={value.lname}
+            onBlur={handleBlur}
+            onChange={handleChange}
           ></input>
         </div>
       </div>
@@ -36,7 +50,10 @@ export default function RegistrationForm({ index }) {
           placeholder="Phone number..."
           className="border-black border border-opacity-20 h-12 px-4 py-2"
           type="tel"
-          name={"phNum" + index}
+          name={phNum}
+          value={value.phNum}
+          onBlur={handleBlur}
+          onChange={handleChange}
         ></input>
       </div>
       <div className="flex-1 h-1 opacity-80  border-black bg-black"></div>
