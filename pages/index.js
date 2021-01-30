@@ -1,28 +1,26 @@
 import Head from "next/head";
-import React, { useState, useCallback } from "react";
+import React from "react";
 import RegistrationForm from "../components/RegistrationForm";
+import { Formik, FieldArray } from "formik";
+import * as Yup from "yup";
 
 export default function App() {
-  const [regNum, setRegNum] = useState(1);
+  const INITIAL_VALUES = [{ id: 0, fname: "", lname: "", phNum: "" }];
 
-  const handleOnSubmit = (e) => {
-    console.log(e);
-  };
-
-  let regRows = [];
-  for (let i = 0; i < regNum; i++) {
-    regRows.push(<RegistrationForm key={i} index={i} />);
-  }
+  const registerSchema = Yup.object().shape({
+    regInputs: Yup.array().of(
+      Yup.object().shape({
+        fname: Yup.string().required("Required field"),
+        lname: Yup.string().required("Required field"),
+        phNum: Yup.string().required("Required field"),
+      })
+    ),
+  });
   //ISSUES:
   // TODO: Clear the object from the array when decrementing the 'lines' index
   // Data = [
   //   {
-  //    'fname': '',
-  //    'lname': '',
-  //    'phNum': '',
-  //    'fname-1': '',
-  //    'lname-1': '',
-  //    'phNum-1': '',
+  //    'fname': '',0
   //   }
   // ]
 
@@ -47,36 +45,72 @@ export default function App() {
           <h1 className="text-4xl font-medium mb-8">
             Please enter your details
           </h1>
-
-          <form
-            onSubmit={handleOnSubmit}
-            className="flex flex-col gap-8 text-left"
+          <Formik
+            initialValues={{ regInputs: INITIAL_VALUES }}
+            onSubmit={(data) => {
+              alert(JSON.stringify(data, null, 2));
+            }}
+            validationSchema={registerSchema}
+            validateOnChange={false}
+            validateOnBlur={false}
           >
-            {regRows}
-
-            <div className="flex gap-8">
-              <div
-                className="flex leading-7 bg-black text-white w-8 h-8 rounded-full justify-center text-center hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
-                onClick={() => setRegNum(regNum + 1)}
-              >
-                +
-              </div>
-              <div
-                className="flex leading-7 bg-black text-white w-8 h-8 rounded-full justify-center align-middle hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
-                onClick={() => {
-                  if (regNum > 1) {
-                    setRegNum(regNum - 1);
-                  }
-                }}
-              >
-                -
-              </div>
-            </div>
-            <input
-              className="mt-10 h-14 text-white bg-black font-medium shadow-lg hover:bg-gray-900 active:bg-gray-700 cursor-pointer"
-              type="submit"
-            />
-          </form>
+            {({ values, handleChange, handleBlur, handleSubmit, errors }) => (
+              <form onSubmit={handleSubmit}>
+                <FieldArray
+                  name="regInputs"
+                  validateOnChange={false}
+                  render={(arrayHelpers) => (
+                    <div className="flex flex-col gap-8 text-left">
+                      <div className="flex flex-col gap-8">
+                        {values.regInputs.map((regInput, index) => (
+                          <RegistrationForm
+                            key={index}
+                            index={index}
+                            errors={errors}
+                            fvalue={regInput.fname}
+                            lvalue={regInput.lname}
+                            phvalue={regInput.phNum}
+                            handleBlur={handleBlur}
+                            handleChange={handleChange}
+                            fname={`regInputs[${index}].fname`}
+                            lname={`regInputs[${index}].lname`}
+                            phNum={`regInputs[${index}].phNum`}
+                          />
+                        ))}
+                        <div
+                          className="flex leading-7 bg-black text-white w-8 h-8 rounded-full justify-center text-center hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
+                          onClick={() => {
+                            arrayHelpers.push({
+                              id: values.regInputs.length,
+                              fname: "",
+                              lname: "",
+                              phNum: "",
+                            });
+                          }}
+                        >
+                          +
+                        </div>
+                        <div
+                          className="flex leading-7 bg-black text-white w-8 h-8 rounded-full justify-center align-middle hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
+                          onClick={() => {
+                            if (values.regInputs.length > 0) {
+                              arrayHelpers.remove(values.regInputs.length - 1);
+                            }
+                          }}
+                        >
+                          -
+                        </div>
+                      </div>
+                      <input
+                        className="mt-10 h-14 text-white bg-black font-medium shadow-lg hover:bg-gray-900 active:bg-gray-700 cursor-pointer"
+                        type="submit"
+                      />
+                    </div>
+                  )}
+                />
+              </form>
+            )}
+          </Formik>
         </div>
       </div>
     </div>
