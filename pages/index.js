@@ -1,39 +1,26 @@
 import Head from "next/head";
-import React, { useState, useCallback, useEffect } from "react";
+import React from "react";
 import RegistrationForm from "../components/RegistrationForm";
 import { Formik, FieldArray } from "formik";
+import * as Yup from "yup";
 
 export default function App() {
-  const [regNum, setRegNum] = useState(1);
-  // const [regList, setRegList] = useState([]);
+  const INITIAL_VALUES = [{ id: 0, fname: "", lname: "", phNum: "" }];
 
-  const INITIAL_VALUES = [{ fname: "", lname: "", phNum: 0 }];
-
-  // function RegRowList(props) {
-  //   let regRows = [...regList];
-  //   regRows.push(
-  //     <RegistrationForm
-  //       key={regNum}
-  //       index={regNum}
-  //       handleChange={props.handleChange}
-  //       handleBlur={props.handleBlur}
-  //       values={props.value}
-  //     />
-  //   );
-  //   console.log(regRows);
-  //   return regRows;
-  // }
-
+  const registerSchema = Yup.object().shape({
+    regInputs: Yup.array().of(
+      Yup.object().shape({
+        fname: Yup.string().required("Required field"),
+        lname: Yup.string().required("Required field"),
+        phNum: Yup.string().required("Required field"),
+      })
+    ),
+  });
   //ISSUES:
   // TODO: Clear the object from the array when decrementing the 'lines' index
   // Data = [
   //   {
-  //    'fname': '',
-  //    'lname': '',
-  //    'phNum': '',
-  //    'fname-1': '',
-  //    'lname-1': '',
-  //    'phNum-1': '',
+  //    'fname': '',0
   //   }
   // ]
 
@@ -59,26 +46,30 @@ export default function App() {
             Please enter your details
           </h1>
           <Formik
-            initialValues={{ regInputs: [INITIAL_VALUES] }}
+            initialValues={{ regInputs: INITIAL_VALUES }}
             onSubmit={(data) => {
               alert(JSON.stringify(data, null, 2));
             }}
+            validationSchema={registerSchema}
+            validateOnChange={false}
+            validateOnBlur={false}
           >
-            {({ values, handleChange, handleBlur, handleSubmit }) => (
-              <form
-                className="flex flex-col gap-8 text-left"
-                onSubmit={handleSubmit}
-              >
+            {({ values, handleChange, handleBlur, handleSubmit, errors }) => (
+              <form onSubmit={handleSubmit}>
                 <FieldArray
                   name="regInputs"
+                  validateOnChange={false}
                   render={(arrayHelpers) => (
-                    <React.Fragment>
-                      <div className="flex gap-8">
+                    <div className="flex flex-col gap-8 text-left">
+                      <div className="flex flex-col gap-8">
                         {values.regInputs.map((regInput, index) => (
                           <RegistrationForm
                             key={index}
                             index={index}
-                            value={regInput}
+                            errors={errors}
+                            fvalue={regInput.fname}
+                            lvalue={regInput.lname}
+                            phvalue={regInput.phNum}
                             handleBlur={handleBlur}
                             handleChange={handleChange}
                             fname={`regInputs[${index}].fname`}
@@ -89,7 +80,12 @@ export default function App() {
                         <div
                           className="flex leading-7 bg-black text-white w-8 h-8 rounded-full justify-center text-center hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
                           onClick={() => {
-                            setRegNum(regNum + 1);
+                            arrayHelpers.push({
+                              id: values.regInputs.length,
+                              fname: "",
+                              lname: "",
+                              phNum: "",
+                            });
                           }}
                         >
                           +
@@ -97,8 +93,8 @@ export default function App() {
                         <div
                           className="flex leading-7 bg-black text-white w-8 h-8 rounded-full justify-center align-middle hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
                           onClick={() => {
-                            if (regNum > 1) {
-                              setRegNum(regNum - 1);
+                            if (values.regInputs.length > 0) {
+                              arrayHelpers.remove(values.regInputs.length - 1);
                             }
                           }}
                         >
@@ -109,7 +105,7 @@ export default function App() {
                         className="mt-10 h-14 text-white bg-black font-medium shadow-lg hover:bg-gray-900 active:bg-gray-700 cursor-pointer"
                         type="submit"
                       />
-                    </React.Fragment>
+                    </div>
                   )}
                 />
               </form>
