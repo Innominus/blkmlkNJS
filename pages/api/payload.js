@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     let Date_Of_Register = date;
     let Time_Of_Register = time;
 
-    db.collection("customers").insertOne(
+    await db.collection("customers").insertOne(
       {
         regID,
         First_Name,
