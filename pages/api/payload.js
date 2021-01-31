@@ -12,12 +12,15 @@ export default async function handler(req, res) {
   //
   const regIndex = req.body.data.regInputs.length;
   const regObject = req.body.data.regInputs;
+  console.log(regIndex);
+  console.log(regObject);
   let i;
   for (i = 0; i < regIndex; i++) {
     let { regID, First_Name, Last_Name, Ph_Number } = regObject[i];
     let Date_Of_Register = date;
     let Time_Of_Register = time;
 
+    console.log(i);
     await db.collection("customers").insertOne(
       {
         regID,
