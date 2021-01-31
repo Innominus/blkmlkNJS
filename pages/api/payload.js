@@ -1,7 +1,10 @@
-import { connectToDatabase } from "../../my-mongodb-api/mongodb";
+//import { connectToDatabase } from "../../my-mongodb-api/mongodb";
 
 export default async function handler(req, res) {
-  const { db } = await connectToDatabase();
+  //const { db } = await connectToDatabase();
+  const { MONGODB_URI } = process.env;
+  const db = require("monk")(MONGODB_URI);
+  const collection = db.get("customers");
 
   const today = new Date();
   const date =
@@ -32,10 +35,19 @@ export default async function handler(req, res) {
 
     console.log(i);
   }
-  db.collection("customers").insertMany(registerArray, (err, res) => {
-    if (err) throw err;
+  await collection
+    .insert(registerArray)
+    .then((docs) => {
+      console.log(docs);
+      console.log(registerArray.length + " customer/s inserted");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  //   db.collection("customers").insertMany(registerArray, (err, res) => {
+  //     if (err) throw err;
 
-    console.log(registerArray.length + " customer/s inserted");
-  });
+  //     console.log(registerArray.length + " customer/s inserted");
+  //   });
   res.status(200).json({ message: "Hello" });
 }
