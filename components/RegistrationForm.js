@@ -58,6 +58,7 @@ export default function RegistrationForm({
           placeholder="Phone number..."
           className="border-black border border-opacity-20 h-12 px-4 py-2"
           type="tel"
+          pattern="["
           name={phNum}
           value={phvalue}
           onBlur={handleBlur}

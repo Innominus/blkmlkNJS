@@ -10,12 +10,16 @@ export default function App() {
     { regID: 1, First_Name: "", Last_Name: "", Ph_Number: "" },
   ];
 
+  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
   const registerSchema = Yup.object().shape({
     regInputs: Yup.array().of(
       Yup.object().shape({
         First_Name: Yup.string().required("Required field"),
         Last_Name: Yup.string().required("Required field"),
-        Ph_Number: Yup.string().required("Required field"),
+        Ph_Number: Yup.string()
+          .matches(phoneRegExp, "Phone number is not valid")
+          .required("Required field"),
       })
     ),
   });
