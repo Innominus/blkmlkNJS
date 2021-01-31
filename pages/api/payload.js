@@ -14,28 +14,28 @@ export default async function handler(req, res) {
   const regObject = req.body.data.regInputs;
   console.log(regIndex);
   console.log(regObject);
+
+  let registerArray = [];
   let i;
   for (i = 0; i < regIndex; i++) {
     let { regID, First_Name, Last_Name, Ph_Number } = regObject[i];
     let Date_Of_Register = date;
     let Time_Of_Register = time;
+    registerArray.push({
+      regID,
+      First_Name,
+      Last_Name,
+      Ph_Number,
+      Date_Of_Register,
+      Time_Of_Register,
+    });
 
     console.log(i);
-    db.collection("customers").insertOne(
-      {
-        regID,
-        First_Name,
-        Last_Name,
-        Ph_Number,
-        Date_Of_Register,
-        Time_Of_Register,
-      },
-      async (err, res) => {
-        if (err) throw err;
-        await res;
-        console.log(" 1 customer inserted");
-      }
-    );
   }
+  db.collection("customers").insertMany(registerArray, (err, res) => {
+    if (err) throw err;
+
+    console.log(registerArray.length + " customer/s inserted");
+  });
   res.status(200).json({ message: "Hello" });
 }
