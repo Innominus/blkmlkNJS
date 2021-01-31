@@ -3,26 +3,47 @@ import React from "react";
 import RegistrationForm from "../components/RegistrationForm";
 import { Formik, FieldArray } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
 
 export default function App() {
-  const INITIAL_VALUES = [{ id: 0, fname: "", lname: "", phNum: "" }];
+  const INITIAL_VALUES = [
+    { regID: 1, First_Name: "", Last_Name: "", Ph_Number: "" },
+  ];
 
   const registerSchema = Yup.object().shape({
     regInputs: Yup.array().of(
       Yup.object().shape({
-        fname: Yup.string().required("Required field"),
-        lname: Yup.string().required("Required field"),
-        phNum: Yup.string().required("Required field"),
+        First_Name: Yup.string().required("Required field"),
+        Last_Name: Yup.string().required("Required field"),
+        Ph_Number: Yup.string().required("Required field"),
       })
     ),
   });
+
+  async function sendData(data, actions) {
+    let returnSignal = "";
+    await axios
+      .post("/api/payload", {
+        data,
+      })
+      .then(
+        (response) => {
+          returnSignal = response.status;
+          console.log(response);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    if (returnSignal === 200) {
+      console.log("Request OK");
+    } else {
+      console.log("Bad request");
+    }
+    actions.setSubmitting(false);
+  }
   //ISSUES:
-  // TODO: Clear the object from the array when decrementing the 'lines' index
-  // Data = [
-  //   {
-  //    'fname': '',0
-  //   }
-  // ]
+  // TODO:
 
   return (
     <div className="bg-blkCoffee bg-cover bg-center flex flex-col h-screen w-screen">
@@ -47,14 +68,22 @@ export default function App() {
           </h1>
           <Formik
             initialValues={{ regInputs: INITIAL_VALUES }}
-            onSubmit={(data) => {
-              alert(JSON.stringify(data, null, 2));
+            onSubmit={(data, actions) => {
+              sendData(data, actions);
+              actions.resetForm();
             }}
             validationSchema={registerSchema}
             validateOnChange={false}
             validateOnBlur={false}
           >
-            {({ values, handleChange, handleBlur, handleSubmit, errors }) => (
+            {({
+              values,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              errors,
+              isSubmitting,
+            }) => (
               <form onSubmit={handleSubmit}>
                 <FieldArray
                   name="regInputs"
@@ -67,24 +96,24 @@ export default function App() {
                             key={index}
                             index={index}
                             errors={errors}
-                            fvalue={regInput.fname}
-                            lvalue={regInput.lname}
-                            phvalue={regInput.phNum}
+                            fvalue={regInput.First_Name}
+                            lvalue={regInput.Last_Name}
+                            phvalue={regInput.Ph_Number}
                             handleBlur={handleBlur}
                             handleChange={handleChange}
-                            fname={`regInputs[${index}].fname`}
-                            lname={`regInputs[${index}].lname`}
-                            phNum={`regInputs[${index}].phNum`}
+                            fname={`regInputs[${index}].First_Name`}
+                            lname={`regInputs[${index}].Last_Name`}
+                            phNum={`regInputs[${index}].Ph_Number`}
                           />
                         ))}
                         <div
                           className="flex leading-7 bg-black text-white w-8 h-8 rounded-full justify-center text-center hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
                           onClick={() => {
                             arrayHelpers.push({
-                              id: values.regInputs.length,
-                              fname: "",
-                              lname: "",
-                              phNum: "",
+                              regID: values.regInputs.length + 1,
+                              First_Name: "",
+                              Last_Name: "",
+                              Ph_Number: "",
                             });
                           }}
                         >
@@ -104,6 +133,7 @@ export default function App() {
                       <input
                         className="mt-10 h-14 text-white bg-black font-medium shadow-lg hover:bg-gray-900 active:bg-gray-700 cursor-pointer"
                         type="submit"
+                        disabled={isSubmitting}
                       />
                     </div>
                   )}
