@@ -15,8 +15,18 @@ export default function App() {
   const registerSchema = Yup.object().shape({
     regInputs: Yup.array().of(
       Yup.object().shape({
-        First_Name: Yup.string().required("Required field"),
-        Last_Name: Yup.string().required("Required field"),
+        First_Name: Yup.string()
+          .test(
+            "alphabets",
+            "First name must only contain letters",
+            (value) => {
+              return /^[A-Za-z]+$/.test(value);
+            }
+          )
+          .required("Required field"),
+        Last_Name: Yup.string()
+          .matches(/^[A-Za-z]+$/, "Last name must only contain letters")
+          .required("Required field"),
         Ph_Number: Yup.string()
           .matches(phoneRegExp, "Phone number is not valid")
           .min(10, "Phone number is too short")
