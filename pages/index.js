@@ -28,9 +28,9 @@ export default function App() {
           .matches(/^[A-Za-z]+$/, "Last name must only contain letters")
           .required("Required field"),
         Ph_Number: Yup.string()
-          .matches(phoneRegExp, "Phone number is not valid")
           .min(10, "Phone number is too short")
           .max(12, "Phone number is too long")
+          .matches(phoneRegExp, "Phone number is not valid")
           .required("Required field"),
       })
     ),
