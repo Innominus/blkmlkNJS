@@ -20,7 +20,7 @@ export default function RegistrationForm({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="flex flex-col gap-2 col-span-1">
           <label className="text-2xl" htmlFor="fname">
-            First name:
+            First Name:
           </label>
           <input
             placeholder="First name..."
@@ -36,7 +36,7 @@ export default function RegistrationForm({
 
         <div className="flex flex-col gap-2 col-span-1">
           <label className="text-2xl" htmlFor="lname">
-            Last name:
+            Last Name:
           </label>
           <input
             placeholder="Last name..."
