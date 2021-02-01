@@ -1,6 +1,11 @@
 //import { connectToDatabase } from "../../my-mongodb-api/mongodb";
 
 export default async function handler(req, res) {
+  function toTitleCase(str) {
+    return str.replace(/\w\S*/g, function (txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+  }
   //const { db } = await connectToDatabase();
   const { MONGODB_URI } = process.env;
   const db = require("monk")(MONGODB_URI);
@@ -24,6 +29,10 @@ export default async function handler(req, res) {
     let { regID, First_Name, Last_Name, Ph_Number } = regObject[i];
     let Date_Of_Register = date;
     let Time_Of_Register = time;
+
+    First_Name = toTitleCase(First_Name);
+    Last_Name = toTitleCase(Last_Name);
+
     registerArray.push({
       regID,
       First_Name,
