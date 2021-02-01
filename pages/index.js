@@ -33,7 +33,7 @@ export default function App() {
       .then(
         (response) => {
           returnSignal = response.status;
-          console.log(response);
+          console.log(response.data.postReturnMsg);
         },
         (error) => {
           console.log(error);
@@ -48,6 +48,9 @@ export default function App() {
   }
   //ISSUES:
   // TODO:
+  // Fix DB names
+  // Fix CSS styling
+  // Add UI feedback with modal
 
   return (
     <div className="bg-blkCoffee bg-cover bg-center flex flex-col h-screen w-screen">

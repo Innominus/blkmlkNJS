@@ -17,7 +17,7 @@ export default async function handler(req, res) {
   const regObject = req.body.data.regInputs;
   console.log(regIndex);
   console.log(regObject);
-
+  var postReturnMsg = "";
   let registerArray = [];
   let i;
   for (i = 0; i < regIndex; i++) {
@@ -38,16 +38,12 @@ export default async function handler(req, res) {
   await collection
     .insert(registerArray)
     .then((docs) => {
+      postReturnMsg = registerArray.length + " customer/s inserted \n" + docs;
       console.log(docs);
-      console.log(registerArray.length + " customer/s inserted");
     })
     .catch((err) => {
       console.log(err);
     });
-  //   db.collection("customers").insertMany(registerArray, (err, res) => {
-  //     if (err) throw err;
 
-  //     console.log(registerArray.length + " customer/s inserted");
-  //   });
-  res.status(200).json({ message: "Hello" });
+  res.status(200).json({ postReturnMsg });
 }
