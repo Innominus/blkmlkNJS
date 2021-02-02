@@ -127,7 +127,7 @@ export default function App() {
                       </div>
                       <div className="flex">
                         <div
-                          className="flex leading-7 bg-black text-white w-8 h-8 rounded-full justify-center text-center hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
+                          className="flex leading-7 mr-2 bg-black text-white w-8 h-8 rounded-full justify-center text-center hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
                           onClick={() => {
                             arrayHelpers.push({
                               regID: values.regInputs.length + 1,
