@@ -113,7 +113,7 @@ export default function App() {
                   validateOnBlur={false}
                   render={(arrayHelpers) => (
                     <div className="flex flex-col gap-6 text-left ">
-                      <div className="flex flex-col gap-8 max-h-full overflow-y-scroll p-2">
+                      <div className="flex flex-col gap-8 max-h-full  p-2">
                         {values.regInputs.map((regInput, index) => (
                           <RegistrationForm
                             key={index}
