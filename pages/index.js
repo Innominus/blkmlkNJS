@@ -10,7 +10,7 @@ export default function App() {
     { regID: 1, First_Name: "", Last_Name: "", Ph_Number: "" },
   ];
 
-  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+  const phoneRegExp = /^(?:\+?(61))? ?(?:\((?=.*\)))?(0?[2-57-8])\)? ?(\d\d(?:[- ](?=\d{3})|(?!\d\d[- ]?\d[- ]))\d\d[- ]?\d[- ]?\d{3})$/;
 
   const registerSchema = Yup.object().shape({
     regInputs: Yup.array().of(
@@ -28,9 +28,10 @@ export default function App() {
           .matches(/^[A-Za-z]+$/, "Last name must only contain letters")
           .required("Required field"),
         Ph_Number: Yup.string()
+          .matches(phoneRegExp, "Phone number is not valid")
           .min(10, "Phone number is too short")
           .max(12, "Phone number is too long")
-          .matches(phoneRegExp, "Phone number is not valid")
+
           .required("Required field"),
       })
     ),
@@ -71,8 +72,12 @@ export default function App() {
       {/* Banner */}
       <div className="bg-black h-auto flex items-center px-12 py-2 ">
         <div className="flex gap-8">
-          <img className="h-16" src="/facebook.svg" />
-          <img className="h-16" src="/instagram.svg" />
+          <a href="https://www.facebook.com/blk.mlk.specialty.coffee">
+            <img className="h-16" src="/facebook.svg" />
+          </a>
+          <a href="https://www.instagram.com/blk.mlk_specialty_coffee/?hl=en">
+            <img className="h-16" src="/instagram.svg" />
+          </a>
         </div>
         <img className="h-24 ml-auto" src="/blkLogo.svg" />
       </div>
@@ -127,6 +132,7 @@ export default function App() {
                       </div>
                       <div className="flex">
                         <button
+                          type="button"
                           className="flex leading-7 mr-2 bg-black text-white w-14 h-8 rounded-md justify-center text-center hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
                           onClick={() => {
                             arrayHelpers.push({
@@ -140,6 +146,7 @@ export default function App() {
                           Add
                         </button>
                         <button
+                          type="button"
                           className="flex leading-7 bg-black text-white w-20 h-8 rounded-md justify-center align-middle hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
                           onClick={() => {
                             if (values.regInputs.length > 1) {
