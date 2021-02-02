@@ -60,7 +60,6 @@ export default function App() {
   }
   //ISSUES:
   // TODO:
-  // Fix DB names
   // Fix CSS styling
   // Add UI feedback with modal
 
@@ -70,7 +69,7 @@ export default function App() {
         <title>BLK MLK COVID-safety</title>
       </Head>
       {/* Banner */}
-      <div className="bg-black h-auto flex items-center px-12 py-4">
+      <div className="bg-black h-auto flex items-center px-12 py-4 ">
         <div className="flex gap-8">
           <img className="h-16" src="/facebook.svg" />
           <img className="h-16" src="/instagram.svg" />
@@ -81,7 +80,7 @@ export default function App() {
       {/* Form */}
       <div className="h-full flex items-center justify-center">
         {/* foreach lines */}
-        <div className="max-w-2xl w-full bg-white shadow-lg p-8">
+        <div className="max-w-2xl w-full bg-white shadow-lg p-8 ">
           <h1 className="text-4xl font-medium mb-8">
             Please enter your details
           </h1>
@@ -108,8 +107,8 @@ export default function App() {
                   name="regInputs"
                   validateOnChange={false}
                   render={(arrayHelpers) => (
-                    <div className="flex flex-col gap-8 text-left">
-                      <div className="flex flex-col gap-8">
+                    <div className="flex flex-col gap-8 text-left transition ease-out duration-500">
+                      <div className="flex flex-col gap-8 max-h-80 overflow-auto ">
                         {values.regInputs.map((regInput, index) => (
                           <RegistrationForm
                             key={index}
@@ -125,6 +124,8 @@ export default function App() {
                             phNum={`regInputs[${index}].Ph_Number`}
                           />
                         ))}
+                      </div>
+                      <div className="flex">
                         <div
                           className="flex leading-7 bg-black text-white w-8 h-8 rounded-full justify-center text-center hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
                           onClick={() => {
@@ -141,7 +142,7 @@ export default function App() {
                         <div
                           className="flex leading-7 bg-black text-white w-8 h-8 rounded-full justify-center align-middle hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
                           onClick={() => {
-                            if (values.regInputs.length > 0) {
+                            if (values.regInputs.length > 1) {
                               arrayHelpers.remove(values.regInputs.length - 1);
                             }
                           }}
@@ -149,6 +150,7 @@ export default function App() {
                           -
                         </div>
                       </div>
+
                       <input
                         className="mt-10 h-14 text-white bg-black font-medium shadow-lg hover:bg-gray-900 active:bg-gray-700 cursor-pointer"
                         type="submit"
