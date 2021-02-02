@@ -19,7 +19,7 @@ export default function RegistrationForm({
     <div className="grid gap-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="flex flex-col gap-2 col-span-1">
-          <label className="text-2xl" htmlFor="fname">
+          <label className="text-xl" htmlFor="fname">
             First Name:
           </label>
           <input
@@ -35,7 +35,7 @@ export default function RegistrationForm({
         </div>
 
         <div className="flex flex-col gap-2 col-span-1">
-          <label className="text-2xl" htmlFor="lname">
+          <label className="text-xl" htmlFor="lname">
             Last Name:
           </label>
           <input
@@ -51,7 +51,7 @@ export default function RegistrationForm({
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <label className="text-2xl" htmlFor="lname">
+        <label className="text-xl" htmlFor="lname">
           Phone Number:
         </label>
         <input
