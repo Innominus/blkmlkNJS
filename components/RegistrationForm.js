@@ -16,10 +16,10 @@ export default function RegistrationForm({
   const lError = getIn(errors, lname);
   const phError = getIn(errors, phNum);
   return (
-    <div className="grid gap-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="flex flex-col gap-2 col-span-1">
-          <label className="text-xl" htmlFor="fname">
+    <div className="grid ">
+      <div className="grid grid-cols-1 md:grid-cols-2 ">
+        <div className="flex flex-col pb-4 md:pr-3 col-span-1">
+          <label className="text-xl pb-2" htmlFor="fname">
             First Name:
           </label>
           <input
@@ -34,8 +34,8 @@ export default function RegistrationForm({
           {fError && <div className="text-red-500">{fError}</div>}
         </div>
 
-        <div className="flex flex-col gap-2 col-span-1">
-          <label className="text-xl" htmlFor="lname">
+        <div className="flex flex-col md:pl-3 pb-4 col-span-1">
+          <label className="text-xl pb-2" htmlFor="lname">
             Last Name:
           </label>
           <input
@@ -50,8 +50,8 @@ export default function RegistrationForm({
           {lError && <div className="text-red-500">{lError}</div>}
         </div>
       </div>
-      <div className="flex flex-col gap-2">
-        <label className="text-xl" htmlFor="lname">
+      <div className="flex flex-col">
+        <label className="text-xl pb-2" htmlFor="lname">
           Phone Number:
         </label>
         <input
@@ -65,7 +65,9 @@ export default function RegistrationForm({
         ></input>
         {phError && <div className="text-red-500">{phError}</div>}
       </div>
-      <div className="flex-1 h-1 opacity-80  border-black bg-black"></div>
+      <div className="py-6">
+        <div className="flex-1 h-1 opacity-80  border-black bg-black"></div>
+      </div>
     </div>
   );
 }
