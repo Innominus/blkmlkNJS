@@ -78,7 +78,7 @@ export default function App() {
       </div>
 
       {/* Form */}
-      <div className="md:h-full flex items-center justify-center">
+      <div className="md:h-full  flex items-center justify-center">
         <div className="max-w-2xl w-full bg-white shadow-lg p-8 ">
           <h1 className="text-2xl font-medium mb-8">
             Please enter your details
@@ -105,9 +105,10 @@ export default function App() {
                 <FieldArray
                   name="regInputs"
                   validateOnChange={false}
+                  validateOnBlur={false}
                   render={(arrayHelpers) => (
-                    <div className="flex flex-col gap-8 text-left">
-                      <div className="flex flex-col gap-8 max-h-80 overflow-auto ">
+                    <div className="flex flex-col gap-6 text-left ">
+                      <div className="flex flex-col gap-8 max-h-full overflow-y-scroll p-2">
                         {values.regInputs.map((regInput, index) => (
                           <RegistrationForm
                             key={index}
