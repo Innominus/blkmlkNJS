@@ -24,11 +24,11 @@ export default function App() {
       </div>
 
       {/* Success Box */}
-      <div className="md:h-full  flex items-center justify-center bg-blkCoffee">
+      <div className="h-full flex items-center justify-center bg-blkCoffee">
         <div className="max-w-2xl w-full  bg-blkCoffee p-2">
           <div className="max-w-2xl  w-full bg-white border border-black p-4 shadow-2xl">
             <h1 className="text-2xl font-medium mb-8 text-center">
-              Thank you for registering with BLK MLK
+              Thank you for checking in with BLK MLK
             </h1>
             <div className="flex justify-center item">
               <img
