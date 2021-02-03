@@ -1,3 +1,5 @@
+const { DateTime } = require("luxon");
+
 export default async function handler(req, res) {
   function toTitleCase(str) {
     return str.replace(/\w\S*/g, function (txt) {
@@ -8,21 +10,13 @@ export default async function handler(req, res) {
   const db = require("monk")(MONGODB_URI);
   const collection = db.get("customers");
 
-  let today = new Date();
-  //today = today.toLocaleString("en", { timeZone: "GMT" });
-  const date = today.toLocaleDateString("en-AU", {
-    timeZone: "Australia/Sydney",
-  });
-  const time = today.toLocaleTimeString("en-AU", {
-    timeZone: "Australia/Sydney",
-  });
-  //console.log(JSON.stringify(req.body.data.regInputs, null, 2));
-  //
+  const today = DateTime.fromObject({ zone: "Australia/Sydney" });
+  const date = today.toISODate();
+  const time = today.toISOTime();
+
   const regIndex = req.body.data.regInputs.length;
   const regObject = req.body.data.regInputs;
-  console.log(regIndex);
-  console.log(regObject);
-  var postReturnMsg = "";
+  let postReturnMsg = "";
   let registerArray = [];
   let i;
   for (i = 0; i < regIndex; i++) {
@@ -41,12 +35,7 @@ export default async function handler(req, res) {
       Date_Of_Register,
       Time_Of_Register,
     });
-
-    console.log(i);
-    console.log(Date_Of_Register);
-    console.log(Time_Of_Register);
   }
-  console.log(today);
 
   await collection
     .insert(registerArray)
