@@ -1,21 +1,21 @@
-//import { connectToDatabase } from "../../my-mongodb-api/mongodb";
-
 export default async function handler(req, res) {
   function toTitleCase(str) {
     return str.replace(/\w\S*/g, function (txt) {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
   }
-  //const { db } = await connectToDatabase();
   const { MONGODB_URI } = process.env;
   const db = require("monk")(MONGODB_URI);
   const collection = db.get("customers");
 
-  const today = new Date();
-  const date =
-    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-  const time =
-    today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  let today = new Date();
+  //today = today.toLocaleString("en", { timeZone: "GMT" });
+  const date = today.toLocaleDateString("en-AU", {
+    timeZone: "Australia/Sydney",
+  });
+  const time = today.toLocaleTimeString("en-AU", {
+    timeZone: "Australia/Sydney",
+  });
   //console.log(JSON.stringify(req.body.data.regInputs, null, 2));
   //
   const regIndex = req.body.data.regInputs.length;
@@ -30,9 +30,9 @@ export default async function handler(req, res) {
     let Date_Of_Register = date;
     let Time_Of_Register = time;
 
-    First_Name = toTitleCase(First_Name);
-    Last_Name = toTitleCase(Last_Name);
-
+    First_Name = toTitleCase(First_Name.replace(" ", ""));
+    Last_Name = toTitleCase(Last_Name.replace(" ", ""));
+    Ph_Number = Ph_Number.trim();
     registerArray.push({
       regID,
       First_Name,
@@ -43,16 +43,20 @@ export default async function handler(req, res) {
     });
 
     console.log(i);
+    console.log(Date_Of_Register);
+    console.log(Time_Of_Register);
   }
-  await collection
-    .insert(registerArray)
-    .then((docs) => {
-      postReturnMsg = registerArray.length + " customer/s inserted \n" + docs;
-      console.log(docs);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  console.log(today);
+
+  // await collection
+  //   .insert(registerArray)
+  //   .then((docs) => {
+  //     postReturnMsg = registerArray.length + " customer/s inserted \n" + docs;
+  //     console.log(docs);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
 
   res.status(200).json({ postReturnMsg });
 }

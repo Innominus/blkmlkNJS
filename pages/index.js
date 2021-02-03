@@ -23,14 +23,15 @@ export default function App() {
             "alphabets",
             "First name must only contain letters",
             (value) => {
-              return /^[A-Za-z]+$/.test(value);
+              return /^[A-Za-z ]+$/.test(value);
             }
           )
           .required("Required field"),
         Last_Name: Yup.string()
-          .matches(/^[A-Za-z]+$/, "Last name must only contain letters")
+          .matches(/^[A-Za-z ]+$/, "Last name must only contain letters")
           .required("Required field"),
         Ph_Number: Yup.string()
+          .trim()
           .matches(phoneRegExp, "Phone number is not valid")
           .min(10, "Phone number is too short")
           .max(12, "Phone number is too long")
@@ -97,7 +98,7 @@ export default function App() {
               onSubmit={(data, actions) => {
                 sendData(data, actions);
                 actions.resetForm();
-                router.push("/registry/success");
+                // router.push("/registry/success");
               }}
               validationSchema={registerSchema}
               validateOnChange={false}
