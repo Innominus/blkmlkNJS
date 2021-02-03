@@ -28,7 +28,7 @@ export default async function handler(req, res) {
     Last_Name = toTitleCase(Last_Name.replace(" ", ""));
     Ph_Number = Ph_Number.trim();
     registerArray.push({
-      regI,
+      regID,
       First_Name,
       Last_Name,
       Ph_Number,
