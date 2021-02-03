@@ -50,19 +50,16 @@ export default function App() {
       .then(
         (response) => {
           returnSignal = response.status;
-          console.log(response.data.postReturnMsg);
         },
         (error) => {
-          console.log(error);
+          returnSignal = error;
         }
       );
     if (returnSignal === 200) {
-      console.log("Request OK");
       actions.resetForm();
       router.push("/registry/success");
       actions.setSubmitting(false);
     } else {
-      console.log("Bad request");
       actions.resetForm();
       router.push("registry/failure");
       actions.setSubmitting(false);

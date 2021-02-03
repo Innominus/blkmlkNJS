@@ -32,7 +32,7 @@ export default async function handler(req, res) {
       First_Name,
       Last_Name,
       Ph_Number,
-      Date_Of_Rgister,
+      Date_Of_Register,
       Time_Of_Register,
     });
   }

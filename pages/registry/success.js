@@ -27,7 +27,7 @@ export default function App() {
       </div>
 
       {/* Success Box */}
-      <div className="h-full flex items-center justify-center bg-blkCoffee">
+      <div className="md:h-full flex items-center justify-center bg-blkCoffee">
         <div className="max-w-2xl w-full  bg-blkCoffee p-2">
           <div className="max-w-2xl  w-full bg-white border border-black p-4 shadow-2xl">
             <h1 className="text-2xl font-medium mb-8 text-center">
