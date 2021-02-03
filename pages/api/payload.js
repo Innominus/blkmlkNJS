@@ -48,15 +48,15 @@ export default async function handler(req, res) {
   }
   console.log(today);
 
-  // await collection
-  //   .insert(registerArray)
-  //   .then((docs) => {
-  //     postReturnMsg = registerArray.length + " customer/s inserted \n" + docs;
-  //     console.log(docs);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
+  await collection
+    .insert(registerArray)
+    .then((docs) => {
+      postReturnMsg = registerArray.length + " customer/s inserted \n" + docs;
+      console.log(docs);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
   res.status(200).json({ postReturnMsg });
 }
