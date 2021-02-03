@@ -4,8 +4,11 @@ import RegistrationForm from "../components/RegistrationForm";
 import { Formik, FieldArray } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 export default function App() {
+  const router = useRouter();
+
   const INITIAL_VALUES = [
     { regID: 1, First_Name: "", Last_Name: "", Ph_Number: "" },
   ];
@@ -84,7 +87,7 @@ export default function App() {
 
       {/* Form */}
       <div className="md:h-full  flex items-center justify-center bg-blkCoffee">
-        <div className="max-w-2xl w-full  bg-blkCoffee p-3">
+        <div className="max-w-2xl w-full  bg-blkCoffee p-2">
           <div className="max-w-2xl  w-full bg-white border border-black p-4 shadow-2xl">
             <h1 className="text-2xl font-medium mb-8">
               Please enter your details
@@ -94,6 +97,7 @@ export default function App() {
               onSubmit={(data, actions) => {
                 sendData(data, actions);
                 actions.resetForm();
+                router.push("/registry/success");
               }}
               validationSchema={registerSchema}
               validateOnChange={false}
