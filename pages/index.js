@@ -105,105 +105,106 @@ export default function App() {
 
       {/* Form */}
 
-      <div className="md:h-full flex items-center justify-center bg-blkCoffee">
+      <div className="flex-1 md:h-full flex items-center justify-center bg-blkCoffee">
         <motion.div
+          className="flex items-center justify-center"
           initial="initial"
           animate="enter"
           exit="exit"
           variants={{ exit: { transition: { staggerChildren: 0.5 } } }}
         >
-          <div className="max-w-2xl w-full bg-blkCoffee p-2">
-            <div className="max-w-2xl w-full bg-white border border-black p-4 shadow-2xl">
-              <motion.div variants={postVariants}>
-                <h1 className="text-2xl font-medium mb-8">
-                  Please enter your details
-                </h1>
-                <Formik
-                  initialValues={{ regInputs: INITIAL_VALUES }}
-                  onSubmit={(data, actions) => {
-                    sendData(data, actions);
-                  }}
-                  validationSchema={registerSchema}
-                  validateOnChange={false}
-                  validateOnBlur={false}
-                >
-                  {({
-                    values,
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                    errors,
-                    isSubmitting,
-                  }) => (
-                    <form onSubmit={handleSubmit}>
-                      <FieldArray
-                        name="regInputs"
-                        validateOnChange={false}
-                        validateOnBlur={false}
-                        render={(arrayHelpers) => (
-                          <div className="flex flex-col text-left ">
-                            <div className="flex flex-col  max-h-full md:overflow-y-scroll">
-                              {values.regInputs.map((regInput, index) => (
-                                <motion.div variants={postVariants}>
-                                  <RegistrationForm
-                                    key={index}
-                                    index={index}
-                                    errors={errors}
-                                    fvalue={regInput.First_Name}
-                                    lvalue={regInput.Last_Name}
-                                    phvalue={regInput.Ph_Number}
-                                    handleBlur={handleBlur}
-                                    handleChange={handleChange}
-                                    fname={`regInputs[${index}].First_Name`}
-                                    lname={`regInputs[${index}].Last_Name`}
-                                    phNum={`regInputs[${index}].Ph_Number`}
-                                  />
-                                </motion.div>
-                              ))}
-                            </div>
-                            <div className="flex pb-4">
-                              <button
-                                type="button"
-                                className="flex leading-7 mr-2 bg-black text-white w-14 h-8 rounded-md justify-center text-center hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
-                                onClick={() => {
-                                  arrayHelpers.push({
-                                    regID: values.regInputs.length + 1,
-                                    First_Name: "",
-                                    Last_Name: "",
-                                    Ph_Number: "",
-                                  });
-                                }}
-                              >
-                                Add
-                              </button>
-                              <button
-                                type="button"
-                                className="flex leading-7 bg-black text-white w-20 h-8 rounded-md justify-center align-middle hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
-                                onClick={() => {
-                                  if (values.regInputs.length > 1) {
-                                    arrayHelpers.remove(
-                                      values.regInputs.length - 1
-                                    );
-                                  }
-                                }}
-                              >
-                                Remove
-                              </button>
-                            </div>
-
-                            <input
-                              className="rounded-sm h-14 text-white bg-black font-medium shadow-lg hover:bg-gray-900 active:bg-gray-700 cursor-pointer"
-                              type="submit"
-                              disabled={isSubmitting}
-                            />
+          <div className=" max-w-2xl w-screen bg-blkCoffee p-2">
+            <motion.div
+              className="max-w-2xl  w-full bg-white border border-black p-4 shadow-2xl"
+              variants={postVariants}
+            >
+              <h1 className="text-2xl font-medium mb-8">
+                Please enter your details
+              </h1>
+              <Formik
+                initialValues={{ regInputs: INITIAL_VALUES }}
+                onSubmit={(data, actions) => {
+                  sendData(data, actions);
+                }}
+                validationSchema={registerSchema}
+                validateOnChange={false}
+                validateOnBlur={false}
+              >
+                {({
+                  values,
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  errors,
+                  isSubmitting,
+                }) => (
+                  <form onSubmit={handleSubmit}>
+                    <FieldArray
+                      name="regInputs"
+                      validateOnChange={false}
+                      validateOnBlur={false}
+                      render={(arrayHelpers) => (
+                        <div className="flex flex-col text-left ">
+                          <div className="flex flex-col  max-h-full md:overflow-y-scroll">
+                            {values.regInputs.map((regInput, index) => (
+                              <motion.div key={index} variants={postVariants}>
+                                <RegistrationForm
+                                  index={index}
+                                  errors={errors}
+                                  fvalue={regInput.First_Name}
+                                  lvalue={regInput.Last_Name}
+                                  phvalue={regInput.Ph_Number}
+                                  handleBlur={handleBlur}
+                                  handleChange={handleChange}
+                                  fname={`regInputs[${index}].First_Name`}
+                                  lname={`regInputs[${index}].Last_Name`}
+                                  phNum={`regInputs[${index}].Ph_Number`}
+                                />
+                              </motion.div>
+                            ))}
                           </div>
-                        )}
-                      />
-                    </form>
-                  )}
-                </Formik>
-              </motion.div>
-            </div>
+                          <div className="flex pb-4">
+                            <button
+                              type="button"
+                              className="flex leading-7 mr-2 bg-black text-white w-14 h-8 rounded-md justify-center text-center hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
+                              onClick={() => {
+                                arrayHelpers.push({
+                                  regID: values.regInputs.length + 1,
+                                  First_Name: "",
+                                  Last_Name: "",
+                                  Ph_Number: "",
+                                });
+                              }}
+                            >
+                              Add
+                            </button>
+                            <button
+                              type="button"
+                              className="flex leading-7 bg-black text-white w-20 h-8 rounded-md justify-center align-middle hover:bg-gray-900 active:bg-gray-600 cursor-pointer"
+                              onClick={() => {
+                                if (values.regInputs.length > 1) {
+                                  arrayHelpers.remove(
+                                    values.regInputs.length - 1
+                                  );
+                                }
+                              }}
+                            >
+                              Remove
+                            </button>
+                          </div>
+
+                          <input
+                            className="rounded-sm h-14 text-white bg-black font-medium shadow-lg hover:bg-gray-900 active:bg-gray-700 cursor-pointer"
+                            type="submit"
+                            disabled={isSubmitting}
+                          />
+                        </div>
+                      )}
+                    />
+                  </form>
+                )}
+              </Formik>
+            </motion.div>
           </div>
         </motion.div>
       </div>

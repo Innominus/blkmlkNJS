@@ -43,7 +43,7 @@ export default function App() {
 
       {/* Success Box */}
 
-      <div className="md:h-full flex items-center justify-center bg-blkCoffee">
+      <div className="flex-1 md:h-full flex items-center justify-center bg-blkCoffee">
         <motion.div
           initial="initial"
           animate="enter"

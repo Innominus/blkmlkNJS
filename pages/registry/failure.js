@@ -44,8 +44,10 @@ export default function App() {
       </div>
 
       {/* Success Box */}
-      <div className="md:h-full flex items-center justify-center bg-blkCoffee">
-        <motion.div variants={{ exit: { transition: { staggerChildren: 2 } } }}>
+      <div className="flex-1 md:h-full flex items-center justify-center bg-blkCoffee">
+        <motion.div
+          variants={{ exit: { transition: { staggerChildren: 0.5 } } }}
+        >
           <div className="max-w-2xl w-full  bg-blkCoffee p-2">
             <motion.div variants={postVariants}>
               <div className="flex-col  max-w-2xl  w-full bg-white border border-black p-4 shadow-2xl">
