@@ -58,10 +58,15 @@ export default function App() {
       );
     if (returnSignal === 200) {
       console.log("Request OK");
+      actions.resetForm();
+      router.push("/registry/success");
+      actions.setSubmitting(false);
     } else {
       console.log("Bad request");
+      actions.resetForm();
+      router.push("registry/failure");
+      actions.setSubmitting(false);
     }
-    actions.setSubmitting(false);
   }
   //ISSUES:
   // TODO:
@@ -87,9 +92,9 @@ export default function App() {
       </div>
 
       {/* Form */}
-      <div className="h-full flex items-center justify-center bg-blkCoffee">
-        <div className="max-w-2xl w-full  bg-blkCoffee p-2">
-          <div className="max-w-2xl  w-full bg-white border border-black p-4 shadow-2xl">
+      <div className="md:h-full flex items-center justify-center bg-blkCoffee">
+        <div className="max-w-2xl w-full bg-blkCoffee p-2">
+          <div className="max-w-2xl w-full bg-white border border-black p-4 shadow-2xl">
             <h1 className="text-2xl font-medium mb-8">
               Please enter your details
             </h1>
@@ -97,8 +102,6 @@ export default function App() {
               initialValues={{ regInputs: INITIAL_VALUES }}
               onSubmit={(data, actions) => {
                 sendData(data, actions);
-                actions.resetForm();
-                // router.push("/registry/success");
               }}
               validationSchema={registerSchema}
               validateOnChange={false}
@@ -167,7 +170,7 @@ export default function App() {
                         </div>
 
                         <input
-                          className=" h-14 text-white bg-black font-medium shadow-lg hover:bg-gray-900 active:bg-gray-700 cursor-pointer"
+                          className="rounded-sm h-14 text-white bg-black font-medium shadow-lg hover:bg-gray-900 active:bg-gray-700 cursor-pointer"
                           type="submit"
                           disabled={isSubmitting}
                         />

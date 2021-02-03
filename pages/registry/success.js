@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 
 export default function App() {
   const router = useRouter();
-
   return (
     <div className=" bg-cover bg-center flex flex-col h-screen w-screen">
       <Head>
@@ -20,7 +19,11 @@ export default function App() {
             <img className="h-16" src="/instagram.svg" />
           </a>
         </div>
-        <img className="h-24 ml-auto" src="/blkLogo.svg" />
+        <img
+          onClick={() => router.push("/")}
+          className="h-24 ml-auto cursor-pointer"
+          src="/blkLogo.svg"
+        />
       </div>
 
       {/* Success Box */}
