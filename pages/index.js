@@ -57,12 +57,12 @@ export default function App() {
       );
     if (returnSignal === 200) {
       router.push("/registry/success");
-      actions.resetForm();
-      actions.setSubmitting(false);
+      // actions.resetForm();
+      // actions.setSubmitting(false);
     } else {
       router.push("registry/failure");
-      actions.resetForm();
-      actions.setSubmitting(false);
+      // actions.resetForm();
+      // actions.setSubmitting(false);
     }
   }
   const postVariants = {
