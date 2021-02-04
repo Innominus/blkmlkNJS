@@ -101,7 +101,7 @@ export default function App() {
 
       {/* Form */}
 
-      <div className="flex-1 md:h-full flex items-center justify-center bg-blkCoffee">
+      <div className="flex-1 flex items-center justify-center bg-blkCoffee">
         <motion.div
           className="flex items-center justify-center"
           initial="initial"
