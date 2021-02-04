@@ -41,7 +41,6 @@ export default async function handler(req, res) {
     .insert(registerArray)
     .then((docs) => {
       postReturnMsg = registerArray.length + " customer/s inserted \n" + docs;
-      console.log(docs);
     })
     .catch((err) => {
       if (err) {
