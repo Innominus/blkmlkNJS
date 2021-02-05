@@ -141,7 +141,7 @@ export default function App() {
                       validateOnBlur={false}
                       render={(arrayHelpers) => (
                         <div className="flex flex-col text-left ">
-                          <div className="flex flex-col  max-h-full md:overflow-y-scroll">
+                          <div className="flex flex-col">
                             {values.regInputs.map((regInput, index) => (
                               <motion.div key={index} variants={postVariants}>
                                 <RegistrationForm
