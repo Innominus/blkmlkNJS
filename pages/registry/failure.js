@@ -22,7 +22,7 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col h-screen w-screen">
+    <div className="flex flex-col">
       <Head>
         <title>BLK MLK COVID-safety</title>
       </Head>
@@ -43,8 +43,8 @@ export default function App() {
         />
       </div>
 
-      {/* Success Box */}
-      <div className="flex-1 items-center justify-center bg-blkCoffee">
+      {/* Failure Box */}
+      <div className="flex-1 flex items-center justify-center bg-blkCoffee">
         <motion.div
           className="flex items-center justify-center"
           initial="initial"
