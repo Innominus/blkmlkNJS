@@ -4,9 +4,11 @@ import { AnimateSharedLayout } from "framer-motion";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <AnimateSharedLayout>
-      <Component {...pageProps} />
-    </AnimateSharedLayout>
+    <div className="grid h-screen w-screen">
+      <AnimateSharedLayout>
+        <Component {...pageProps} />
+      </AnimateSharedLayout>
+    </div>
   );
 }
 
