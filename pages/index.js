@@ -82,7 +82,7 @@ export default function App() {
   };
 
   return (
-    <div className=" bg-cover bg-center flex flex-col h-screen w-screen">
+    <div className="flex flex-1 flex-col h-screen w-screen">
       <Head>
         <title>BLK MLK COVID-safety</title>
       </Head>
@@ -101,7 +101,7 @@ export default function App() {
 
       {/* Form */}
 
-      <div className="flex-1 flex items-center justify-center bg-blkCoffee">
+      <div className="flex-1  items-center justify-center bg-blkCoffee ">
         <motion.div
           className="flex items-center justify-center"
           initial="initial"
@@ -113,7 +113,7 @@ export default function App() {
             className="max-w-2xl w-screen p-2"
             variants={postVariants}
           >
-            <div className="max-w-2xl  w-full bg-white border border-black p-4 shadow-2xl">
+            <div className="max-w-2xl w-full bg-white border border-black p-4 shadow-2xl">
               <h1 className="text-2xl font-medium mb-8">
                 Please enter your details
               </h1>

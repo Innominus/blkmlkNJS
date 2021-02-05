@@ -16,7 +16,7 @@ export default function RegistrationForm({
   const lError = getIn(errors, lname);
   const phError = getIn(errors, phNum);
   return (
-    <div className="grid ">
+    <div className="grid">
       <div className="grid grid-cols-1 md:grid-cols-2 ">
         <div className="flex flex-col pb-4 md:pr-3 col-span-1">
           <label className="text-xl pb-2" htmlFor="fname">
